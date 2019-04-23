@@ -952,11 +952,11 @@ int main(int argc, const char * argv[]) {
     // we are going to minimize || DF - D U M ||, where D is diagonal, U is a matrix of ancestors, and M is a vector of vectors in the simplex
     
     // read the flag that sets the cols of M to be on the probability simplex, or on the interior+boundary of the probability simplex
+    // If inner_flag=1, then cols must sum to 1.
     int inner_flag = 0;
-    inner_flag = atoi(argv[3]);
     
     // we read a file with all of the data
-    FILE * fptr = fopen(argv[1], "r");
+    FILE* fptr = stdin;
     // read buff
     int Ibuff;
     float Dbuff;
@@ -1010,7 +1010,7 @@ int main(int argc, const char * argv[]) {
     realnumber cost = tree_cost_projection(inner_flag,compute_M_flag, M_recon, num_nodes, T, data, gamma_init, root_node, NULL, NULL, final_degrees, adj_list);
     
     // output result
-    fptr = fopen(argv[2], "w");
+    fptr = stdout;
     fprintf(fptr, "%f\n", (float) cost);
     
     if (compute_M_flag == 1){
