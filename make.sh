@@ -1,7 +1,6 @@
 #!/bin/sh
 CC="gcc -Wall -O3"
 
-
 function make_bin {
   for foo in project_onto_PPM.c main.c; do
     base=$(basename $foo | cut -d. -f1)
@@ -13,7 +12,7 @@ function make_bin {
 
 function make_lib {
   # Need -fPIC for library.
-  $CC -shared -fPIC -o bin/libprojectppm.so project_onto_PPM.c
+  $CC -shared -fPIC -Wl,-soname,libprojectppm.so -o bin/libprojectppm.so project_onto_PPM.c
 }
 
 function main {
