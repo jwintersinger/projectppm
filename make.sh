@@ -11,8 +11,15 @@ function make_bin {
 }
 
 function make_lib {
+  # See https://stackoverflow.com/questions/4580789. (Thanks, Juber!)
+  if [[ "$OSTYPE" == "darwin" ]]; then
+    SWITCHES="-install_name"
+  else
+    SWITCHES="-soname"
+  fi
+
   # Need -fPIC for library.
-  $CC -shared -fPIC -Wl,-soname,libprojectppm.so -o bin/libprojectppm.so project_onto_PPM.c
+  $CC -shared -fPIC -Wl,$SWITCHES,libprojectppm.so -o bin/libprojectppm.so project_onto_PPM.c
 }
 
 function main {
