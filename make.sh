@@ -12,7 +12,7 @@ function make_bin {
 
 function make_lib {
   # See https://stackoverflow.com/questions/4580789. (Thanks, Juber!)
-  if [[ "$OSTYPE" == "darwin" ]]; then
+  if [[ "$OSTYPE" == "darwin"* ]]; then
     SWITCHES="-install_name"
   else
     SWITCHES="-soname"
