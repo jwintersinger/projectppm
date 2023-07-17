@@ -1,5 +1,5 @@
 #!/bin/sh
-CC="gcc -Wall -O3"
+CC="gcc -Wall -O3 -std=c99"
 
 function make_bin {
   for foo in project_onto_PPM.c main.c; do
