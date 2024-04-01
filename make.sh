@@ -1,5 +1,6 @@
 #!/bin/sh
-CC="gcc -Wall -O3"
+CC="gcc -Wall -O3 -std=c99"
+CFLAGS=""
 
 function make_bin {
   for foo in project_onto_PPM.c main.c; do
@@ -17,9 +18,12 @@ function make_lib {
   else
     SWITCHES="-soname"
   fi
-
+  # M1 mac chip support
+  if [[ $(uname -m) == 'arm64' ]]; then
+    CFLAGS="-arch x86_64 -arch arm64"
+  fi
   # Need -fPIC for library.
-  $CC -shared -fPIC -Wl,$SWITCHES,libprojectppm.so -o bin/libprojectppm.so project_onto_PPM.c
+  $CC -shared -fPIC -Wl,$SWITCHES,libprojectppm.so -o bin/libprojectppm.so project_onto_PPM.c $CFLAGS
 }
 
 function main {
